@@ -1,0 +1,6 @@
+{'learning_rate': 0.5725847818837073,
+ 'n_estimators': 1350,
+ 'max_depth': 13,
+ 'max_bin': 147,
+ 'num_leaves': 508,
+ 'l2_reg': 0.9729227793947609}
