@@ -1,6 +1,29 @@
-{'learning_rate': 0.5725847818837073,
- 'n_estimators': 1350,
- 'max_depth': 13,
- 'max_bin': 147,
- 'num_leaves': 508,
- 'l2_reg': 0.9729227793947609}
+//================================//
+Trial 20 finished with value: 0.886041620767209
+{'learning_rate': 0.3420659305689057, 
+'n_estimators': 1400, 
+'max_depth': 24, 
+'max_bin': 128, 
+'num_leaves': 159,
+'l2_reg': 0.25243371266567166}
++ BinaryEncoder
+
+//================================//
+ Trial 37 finished with value: 0.8864744848952685
+ {'learning_rate': 0.2876872208962442, 
+ 'n_estimators': 1500, 
+ 'max_depth': 22, 
+ 'max_bin': 173, 
+ 'num_leaves': 318, 
+ 'l2_reg': 0.7123306278129345} 
++ BinaryEncoder
+
+//================================//
+Trial 38 finished with value: 0.886779017537382
+{'learning_rate': 0.2945309998327077, 
+'n_estimators': 1500, 
+'max_depth': 21, 
+'max_bin': 204, 
+'num_leaves': 304, 
+'l2_reg': 0.762011415827371}
++ BinaryEncoder
