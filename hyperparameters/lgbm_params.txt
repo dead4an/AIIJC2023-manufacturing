@@ -5,7 +5,7 @@ Trial 20 finished with value: 0.886041620767209
 'max_depth': 24, 
 'max_bin': 128, 
 'num_leaves': 159,
-'l2_reg': 0.25243371266567166}
+'reg_lambda': 0.25243371266567166}
 + BinaryEncoder
 
 //================================//
@@ -15,7 +15,7 @@ Trial 20 finished with value: 0.886041620767209
  'max_depth': 22, 
  'max_bin': 173, 
  'num_leaves': 318, 
- 'l2_reg': 0.7123306278129345} 
+ 'reg_lambda': 0.7123306278129345} 
 + BinaryEncoder
 
 //================================//
@@ -25,5 +25,5 @@ Trial 38 finished with value: 0.886779017537382
 'max_depth': 21, 
 'max_bin': 204, 
 'num_leaves': 304, 
-'l2_reg': 0.762011415827371}
+'reg_lambda': 0.762011415827371}
 + BinaryEncoder
