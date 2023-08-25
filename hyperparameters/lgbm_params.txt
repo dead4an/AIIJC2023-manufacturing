@@ -27,3 +27,16 @@ Trial 38 finished with value: 0.886779017537382
 'num_leaves': 304, 
 'reg_lambda': 0.762011415827371}
 + BinaryEncoder
+
+
+CatBoost
+0.8650275860771961: {'learning_rate': 0.5997844710129062, 'n_estimators': 403, 'max_depth': 12, 'l2_leaf_reg': 0.11295730473196362}
+
+0.8517357500714517 and parameters: {'learning_rate': 0.7745507523062354, 'iterations': 827, 'max_depth': 6, 'l2_leaf_reg': 0.29855436518401274}. Best is trial 0 with value: 0.8517357500714517.
+0.863527264120185 and parameters: {'learning_rate': 0.5649506867672681, 'iterations': 415, 'max_depth': 9, 'l2_leaf_reg': 0.39359808356989523}. Best is trial 1 with value: 0.863527264120185.
+0.861955976978489 and parameters: {'learning_rate': 0.8571625693936658, 'iterations': 765, 'max_depth': 10, 'l2_leaf_reg': 0.9873472586129348}. Best is trial 1 with value: 0.863527264120185.
+0.8827603430546466 and parameters: {'learning_rate': 0.2073614381077149, 'iterations': 699, 'max_depth': 12, 'l2_leaf_reg': 0.9661379548019147}. Best is trial 3 with value: 0.8827603430546466.
+0.8620997502056099 and parameters: {'learning_rate': 0.6394662927095234, 'iterations': 754, 'max_depth': 7, 'l2_leaf_reg': 0.7396424342349011}. Best is trial 3 with value: 0.8827603430546466.
+0.8601593111647141 and parameters: {'learning_rate': 0.7898975613952727, 'iterations': 314, 'max_depth': 10, 'l2_leaf_reg': 0.8422810916934698}. Best is trial 3 with value: 0.8827603430546466.
+0.8705131922622176 and parameters: {'learning_rate': 0.38124213485870906, 'iterations': 804, 'max_depth': 8, 'l2_leaf_reg': 0.6302942742995615}. Best is trial 3 with value: 0.8827603430546466.
+0.8334850297292246 and parameters: {'learning_rate': 0.14794530589007873, 'iterations': 912, 'max_depth': 6, 'l2_leaf_reg': 0.13318201076500205}. Best is trial 3 with value: 0.8827603430546466.
