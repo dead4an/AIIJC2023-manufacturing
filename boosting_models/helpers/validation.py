@@ -18,5 +18,5 @@ def valid_predictions(y_true, y_predicted) -> None:
     print(classification_report(y_true, y_predicted, digits=5))
 
     # Получаем F1 и ROC AUC метрики
-    print(f1_score(y_true, y_predicted, average='macro'))
-    print(roc_auc_score(y_true, y_predicted))
+    print(f"F1-macro: {f1_score(y_true, y_predicted, average='macro')}")
+    print(f'ROC-AUC score: {roc_auc_score(y_true, y_predicted)}')
