@@ -1,2 +1,3 @@
-a, b = [int(num) for num in input().split(' ')]
-print(a, b)
+dict_1 = {1: 2}
+for num in dict_1:
+    print(num)
