@@ -35,9 +35,8 @@ RENAME_COLS = ['Provider', 'Material', 'Category_Manager', 'Operations_Manager',
                'Days_Between_0_1', 'Days_Between_1_2', 'Days_Between_2_3', 'Days_Between_3_4',
                'Days_Between_4_5', 'Days_Between_5_6', 'Days_Between_6_7', 'Days_Between_7_8']
 
+
 # Предобработчик
-
-
 class DataPreprocessor(BaseEstimator, TransformerMixin):
     """ Предобработчик данных. 
 

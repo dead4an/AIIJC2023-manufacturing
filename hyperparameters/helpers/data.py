@@ -15,7 +15,7 @@ SCALE_FEATURES = ['Position_Count', 'Duration', 'ETC_Delivery', 'Changes_After_A
                   'Order_Approval_1', 'Order_Approval_2', 'Order_Approval_3', 'Sum',
                   'Change_Delivery_Date_7', 'Change_Delivery_Date_15', 'Change_Delivery_Date_30',
                   'Approval_Cycles', 'Handlers_7', 'Handlers_15', 'Handlers_30', 'Days_Between_0_1',
-                  'Days_Between_1_2', 'Days_Between_2_3', 'Days_Between_3_4', 'Days_Between_4_5', 
+                  'Days_Between_1_2', 'Days_Between_2_3', 'Days_Between_3_4', 'Days_Between_4_5',
                   'Days_Between_5_6', 'Days_Between_6_7', 'Days_Between_7_8', 'ETC_Difference', 'ETC_Power']
 
 # Признаки, не используемые в ходе обучения и предсказания
@@ -61,13 +61,15 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         fit: Обучает предобработчики для дальнейшего использования.
         transform: Трансформирует датасет для дальнейшего использования. """
 
-    def __init__(self) -> None:
+    def __init__(self, encode_categorical=True) -> None:
+        # Инициализация атрибутов
+        self.encode_categorical = encode_categorical
 
         # Инициализация предобработчиков
         self.bin_encoder = BinaryEncoder(cols=CAT_FEATURES)
         self.robust_scaler = RobustScaler()
 
-    def fit(self, X: pd.DataFrame, y=pd.DataFrame | None) -> object:
+    def fit(self, X: pd.DataFrame, y: pd.DataFrame | None) -> object:
         """ Обучение предобработчика.
 
         Обучает предобработчики, на основе датасета и дополнительных признаков,
@@ -112,7 +114,8 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         self.robust_scaler.fit(X_[SCALE_FEATURES])
 
         # Кодировка категориальных признаков
-        X_ = self.bin_encoder.fit_transform(X_)
+        if self.encode_categorical:
+            X_ = self.bin_encoder.fit_transform(X_)
 
         # Дроп неиспользуемых признаков
         X_ = X_.drop(DROP_FEATURES, axis=1)
@@ -165,7 +168,8 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         X_[SCALE_FEATURES] = self.robust_scaler.transform(X_[SCALE_FEATURES])
 
         # Категориальные фичи
-        X_ = self.bin_encoder.transform(X_)
+        if self.encode_categorical:
+            X_ = self.bin_encoder.transform(X_)
 
         X_ = X_.drop(DROP_FEATURES, axis=1)
 
