@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UnThinkable</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <nav id="topbar"><h2 id="top-title">UnThinkable</h2></nav>
+    <div id="team">
+      <div class="teammate" id="marketolog-number-one">
+        <img src="{{ url_for('static', filename='avatar1.jpg') }}" alt="" />
+        <div class="info">
+          <h2>Тимашев Антон</h2>
+          <p>Анализ данных</p>
+        </div>
+      </div>
+      <div class="teammate" id="znaet-umnie-frazi">
+        <img src="{{ url_for('static', filename='avatar2.jpg') }}" alt="" />
+        <div class="info">
+          <h2>Жук Денис</h2>
+          <p>Разработка моделей</p>
+        </div>
+      </div>
+      <div class="teammate" id="best-bruh">
+        <img src="{{ url_for('static', filename='avatar3.jpg') }}" alt="" />
+        <div class="info">
+          <h2>Горохов Артём</h2>
+          <p>Оптимизация моделей</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
