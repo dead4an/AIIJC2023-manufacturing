@@ -19,7 +19,7 @@ SCALE_FEATURES = ['Position_Count', 'Duration', 'ETC_Delivery', 'Changes_After_A
                   'Days_Between_5_6', 'Days_Between_6_7', 'Days_Between_7_8', 'ETC_Difference', 'ETC_Power']
 
 # Признаки, не используемые в ходе обучения и предсказания
-DROP_FEATURES = ['Material', 'Cancel_Complete_Release', 'Month1', 'Month2', 'Month3', 
+DROP_FEATURES = ['Material', 'Cancel_Complete_Release', 'Month1', 'Month2', 'Month3',
                  'Delivery_Date', 'Change_on_Paper', 'Amount', 'Category_Manager', 'NRP']
 
 # Новые именования признаков (для совместимости со всеми моделями)
