@@ -99,7 +99,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         X_['ETC_Difference'] = X_['Duration'] - X_['ETC_Delivery']
         X_['Change_Difference'] = X_['Delivery_Date'] - X_['Change_on_Paper']
         X_['ETC_Power'] = X_['ETC_Difference'] ^ 2
-
+        
         # Добавляем тригонометрические значения временных признаков
         X_['day_sin'] = np.sin(np.pi * 2 * X_['Weekday'] / 7)
         X_['day_cos'] = np.cos(np.pi * 2 * X_['Weekday'] / 7)
