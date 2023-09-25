@@ -11,7 +11,7 @@ CAT_FEATURES = ['Purchasing_Organization', 'Company_Code', 'Provider', 'Provider
                 'Operations_Manager', 'Sum_Fold', 'Material_Group', 'Purchasing_Group', 'EI']
 
 # Числовые признаки подлежащие масштабированию RobustScaler
-SCALE_FEATURES = ['Position_Count', 'Duration', 'ETC_Delivery', 'Changes_After_Approvals',
+SCALE_FEATURES = ['Position_Count', 'Duration', 'ETA_Delivery', 'Changes_After_Approvals',
                   'Order_Approval_1', 'Order_Approval_2', 'Order_Approval_3', 'Sum',
                   'Change_Delivery_Date_7', 'Change_Delivery_Date_15', 'Change_Delivery_Date_30',
                   'Approval_Cycles', 'Handlers_7', 'Handlers_15', 'Handlers_30', 'Days_Between_0_1',
@@ -26,7 +26,7 @@ DROP_FEATURES = ['Material', 'Cancel_Complete_Release', 'Month1', 'Month2', 'Mon
 RENAME_COLS = ['Provider', 'Material', 'Category_Manager', 'Operations_Manager',
                'Factory', 'Purchasing_Organization', 'Purchasing_Group',
                'Company_Code', 'EI', 'Material_Group', 'Delivery_Option',
-               'NRP', 'Duration', 'ETC_Delivery', 'Month1', 'Month2', 'Month3',
+               'NRP', 'Duration', 'ETA_Delivery', 'Month1', 'Month2', 'Month3',
                'Weekday', 'Sum', 'Position_Count', 'Amount', 'Handlers_7',
                'Handlers_15', 'Handlers_30', 'Order_Approval_1', 'Order_Approval_2',
                'Order_Approval_3', 'Change_Delivery_Date_7', 'Change_Delivery_Date_15',
@@ -96,7 +96,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         X_['Provider_Purchaser'] = [f'{x}_{y}' for x, y in zip(X_['Provider'].values,
                                                                X_['Purchasing_Organization'].values)]
         X_['Sum_Fold'] = X_['Sum'].apply(lambda x: int(x) % 10)
-        X_['ETC_Difference'] = X_['Duration'] - X_['ETC_Delivery']
+        X_['ETC_Difference'] = X_['Duration'] - X_['ETA_Delivery']
         X_['Change_Difference'] = X_['Delivery_Date'] - X_['Change_on_Paper']
         X_['ETC_Power'] = X_['ETC_Difference'] ^ 2
 
@@ -150,7 +150,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         X_['Provider_Purchaser'] = [f'{x}_{y}' for x, y in zip(X_['Provider'].values, 
                                                                X_['Purchasing_Organization'].values)]
         X_['Sum_Fold'] = X_['Sum'].apply(lambda x: int(x) % 10)
-        X_['ETC_Difference'] = X_['Duration'] - X_['ETC_Delivery']
+        X_['ETC_Difference'] = X_['Duration'] - X_['ETA_Delivery']
         X_['Change_Difference'] = X_['Delivery_Date'] - X_['Change_on_Paper']
         X_['ETC_Power'] = X_['ETC_Difference'] ^ 2
 
