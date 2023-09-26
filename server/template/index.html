@@ -8,9 +8,20 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
+    <script async src="{{ url_for('static', filename='script.js') }}"></script>
   </head>
   <body>
-    <nav id="topbar"><h2 id="top-title">UnThinkable</h2></nav>
+    <!-- Topbar -->
+    <nav id="topbar">
+      <img
+        id="logo-u"
+        src="{{ url_for('static', filename='logo.jpg') }}"
+        alt=""
+      />
+      <h2 id="top-title">UnThinkable</h2>
+    </nav>
+
+    <!-- Team -->
     <div id="team">
       <div class="teammate" id="marketolog-number-one">
         <img src="{{ url_for('static', filename='avatar1.jpg') }}" alt="" />
@@ -33,6 +44,295 @@
           <p>Оптимизация моделей</p>
         </div>
       </div>
+    </div>
+
+    <!-- Model -->
+    <div id="model">
+      <form id="get-predict" action="/" method="post">
+        <label for="provider">Поставщик</label>
+        <input
+          type="number"
+          min="1"
+          max="2720"
+          name="provider"
+          id="provider"
+          value="1"
+        />
+
+        <label for="material">Материал</label>
+        <input
+          type="number"
+          min="1"
+          max="27439"
+          name="material"
+          id="material"
+          value="1"
+        />
+
+        <label for="cat-manager">Категорийный менеджер</label>
+        <input
+          type="number"
+          min="1"
+          max="15"
+          name="cat-manager"
+          id="cat-manager"
+          value="1"
+        />
+
+        <label for="op-manager">Операционный менеджер</label>
+        <input
+          type="number"
+          min="1"
+          max="38"
+          name="op-manager"
+          id="op-manager"
+          value="1"
+        />
+
+        <label for="factory">Завод</label>
+        <input
+          type="number"
+          min="1"
+          max="82"
+          name="factory"
+          id="factory"
+          value="1"
+        />
+
+        <label for="pur-org">Закупочная организация</label>
+        <input
+          type="number"
+          min="1"
+          max="26"
+          name="pur-org"
+          id="pur-org"
+          value="1"
+        />
+
+        <label for="pur-group">Группа закупок</label>
+        <input
+          type="number"
+          min="1"
+          max="379"
+          name="pur-group"
+          id="pur-group"
+          value="1"
+        />
+
+        <label for="company-code">Балансовая единица</label>
+        <input
+          type="number"
+          min="1"
+          max="17"
+          name="company-code"
+          id="company-code"
+          value="1"
+        />
+
+        <label for="unit">ЕИ</label>
+        <input type="number" min="1" max="29" name="unit" id="unit" value="1" />
+
+        <label for="mat-group">Группа материалов</label>
+        <input
+          type="number"
+          min="1"
+          max="191"
+          name="mat-group"
+          id="mat-group"
+          value="1"
+        />
+
+        <label for="del-option">Вариант поставки</label>
+        <input
+          type="number"
+          min="1"
+          max="3"
+          name="del-option"
+          id="del-option"
+          value="1"
+        />
+
+        <label for="nrp">НРП</label>
+        <input type="number" name="nrp" id="nrp" value="1" />
+
+        <label for="duration">Длительность</label>
+        <input type="number" name="duration" id="duration" value="1" />
+
+        <label for="eta-delivery">До поставки</label>
+        <input type="number" name="eta-delivery" id="eta-delivery" value="1" />
+
+        <label for="month1">Месяц1</label>
+        <input type="number" name="month1" id="month1" value="1" />
+
+        <label for="month2">Месяц2</label>
+        <input type="number" name="month2" id="month2" value="1" />
+
+        <label for="month3">Месяц3</label>
+        <input type="number" name="month3" id="month3" value="1" />
+
+        <label for="weekday">День недели 2</label>
+        <input type="number" name="weekday" id="weekday" value="1" />
+
+        <label for="sum">Сумма</label>
+        <input type="number" step="0.00001" name="sum" id="sum" value="1" />
+
+        <label for="pos-count">Количество позиций</label>
+        <input type="number" name="pos-count" id="pos-count" value="1" />
+
+        <label for="amount">Количество</label>
+        <input type="number" name="amount" id="amount" value="1" />
+
+        <label for="hand-num7">Количество обработчиков 7</label>
+        <input type="number" name="hand-num7" id="hand-num7" value="1" />
+
+        <label for="hand-num15">Количество обработчиков 15</label>
+        <input type="number" name="hand-num15" id="hand-num15" value="1" />
+
+        <label for="hand-num30">Количество обработчиков 30</label>
+        <input type="number" name="hand-num30" id="hand-num30" value="1" />
+
+        <label for="ord-approval1">Согласование заказа 1</label>
+        <input
+          type="number"
+          name="ord-approval1"
+          id="ord-approval1"
+          value="1"
+        />
+
+        <label for="ord-approval2">Согласование заказа 2</label>
+        <input
+          type="number"
+          name="ord-approval2"
+          id="ord-approval2"
+          value="1"
+        />
+
+        <label for="ord-approval3">Согласование заказа 3</label>
+        <input
+          type="number"
+          name="ord-approval3"
+          id="ord-approval3"
+          value="1"
+        />
+
+        <label for="change-date7">Изменение даты поставки 7</label>
+        <input type="number" name="change-date7" id="change-date7" value="1" />
+
+        <label for="change-date15">Изменение даты поставки 15</label>
+        <input
+          type="number"
+          name="change-date15"
+          id="change-date15"
+          value="1"
+        />
+
+        <label for="change-date30">Изменение даты поставки 30</label>
+        <input
+          type="number"
+          name="change-date30"
+          id="change-date30"
+          value="1"
+        />
+
+        <label for="deblock">Отмена полного деблокирования</label>
+        <input type="number" name="deblock" id="deblock" value="1" />
+
+        <label for="change-date-paper"
+          >Изменение даты поставки на бумаге
+        </label>
+        <input
+          type="number"
+          name="change-date-paper"
+          id="change-date-paper"
+          value="1"
+        />
+
+        <label for="change-date">Изменение даты поставки</label>
+        <input type="number" name="change-date" id="change-date" value="1" />
+
+        <label for="cycle-app-count">Количество циклов согласования</label>
+        <input
+          type="number"
+          name="cycle-app-count"
+          id="cycle-app-count"
+          value="1"
+        />
+
+        <label for="change-app-count">Изменений после согласований </label>
+        <input
+          type="number"
+          name="change-app-count"
+          id="change-app-count"
+          value="1"
+        />
+
+        <label for="days-between01">Дней между 0_1</label>
+        <input
+          type="number"
+          name="days-between01"
+          id="days-between01"
+          value="1"
+        />
+
+        <label for="days-between12">Дней между 1_2</label>
+        <input
+          type="number"
+          name="days-between12"
+          id="days-between12"
+          value="1"
+        />
+
+        <label for="days-between23">Дней между 2_3</label>
+        <input
+          type="number"
+          name="days-between23"
+          id="days-between23"
+          value="1"
+        />
+
+        <label for="days-between34">Дней между 3_4</label>
+        <input
+          type="number"
+          name="days-between34"
+          id="days-between34"
+          value="1"
+        />
+
+        <label for="days-between45">Дней между 4_5</label>
+        <input
+          type="number"
+          name="days-between45"
+          id="days-between45"
+          value="1"
+        />
+
+        <label for="days-between56">Дней между 5_6</label>
+        <input
+          type="number"
+          name="days-between56"
+          id="days-between56"
+          value="1"
+        />
+
+        <label for="days-between67">Дней между 6_7</label>
+        <input
+          type="number"
+          name="days-between67"
+          id="days-between67"
+          value="1"
+        />
+
+        <label for="days-between78">Дней между 7_8</label>
+        <input
+          type="number"
+          name="days-between78"
+          id="days-between78"
+          value="1"
+        />
+
+        <label for="submit">Запрос</label>
+        <input id="submit" type="submit" value="Submit" method="post" />
+      </form>
     </div>
   </body>
 </html>

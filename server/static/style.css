@@ -1,3 +1,4 @@
+/* Body */
 body {
   display: grid;
   grid-template-columns: repeat(20, 5vmax);
@@ -6,6 +7,7 @@ body {
   background-color: black;
 }
 
+/* Topbar */
 #topbar {
   display: flex;
   grid-column: span 20;
@@ -22,6 +24,7 @@ body {
   color: black;
 }
 
+/* Team */
 #team {
   display: flex;
   grid-column: 2/6;
@@ -39,6 +42,13 @@ body {
   flex-direction: column;
   flex-flow: wrap;
   padding-left: 14px;
+}
+
+#logo-u {
+  width: 64px;
+  height: 64px;
+  border: 3px solid black;
+  margin-right: 5px;
 }
 
 .teammate {
@@ -75,4 +85,56 @@ body {
   margin-right: 14px;
   border-width: 2px;
   border: 3px solid black;
+}
+
+/* Model */
+#model {
+  display: flex;
+  grid-column: 8/19;
+  grid-row: 3/10;
+  grid-template-columns: repeat(20, 5%);
+  grid-template-rows: repeat(10, 10%);
+
+  justify-content: center;
+
+  border-radius: 30px;
+  border-color: rgb(190, 190, 190);
+  box-shadow: 0px 0px 1px 1px rgb(180, 180, 180);
+  background-color: white;
+}
+
+#get-predict {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+  align-items: center;
+}
+
+#get-predict label {
+  /* width: 20px;
+  height: 15px; */
+  /* max-width: 40px; */
+  /* min-width: 220px; */
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#get-predict input {
+  max-width: 150px;
+  min-width: 150px;
+  border: 2px solid black;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#submit {
+  border: none;
+  border-radius: 15px;
+  color: white;
+  background-color: black;
 }

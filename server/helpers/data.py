@@ -98,7 +98,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         X_['Sum_Fold'] = X_['Sum'].apply(lambda x: int(x) % 10)
         X_['ETC_Difference'] = X_['Duration'] - X_['ETA_Delivery']
         X_['Change_Difference'] = X_['Delivery_Date'] - X_['Change_on_Paper']
-        X_['ETC_Power'] = X_['ETC_Difference'] ^ 2
+        X_['ETC_Power'] = X_['ETC_Difference'] + 2
 
         # Добавляем тригонометрические значения временных признаков
         X_['day_sin'] = np.sin(np.pi * 2 * X_['Weekday'] / 7)
@@ -152,7 +152,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         X_['Sum_Fold'] = X_['Sum'].apply(lambda x: int(x) % 10)
         X_['ETC_Difference'] = X_['Duration'] - X_['ETA_Delivery']
         X_['Change_Difference'] = X_['Delivery_Date'] - X_['Change_on_Paper']
-        X_['ETC_Power'] = X_['ETC_Difference'] ^ 2
+        X_['ETC_Power'] = X_['ETC_Difference'] + 2
 
         # Временные фичи
         X_['day_sin'] = np.sin(np.pi * 2 * X_['Weekday'] / 7)
