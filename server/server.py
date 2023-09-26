@@ -16,6 +16,7 @@ model = None
 with open(MODEL_SAVE_PATH, 'rb') as file:
     model = pickle.load(file)
 
+# Приложение Flask
 app = Flask(__name__, template_folder='template', static_folder='static')
 @app.route('/', methods=['POST', 'GET'])
 def home_page():
