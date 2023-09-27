@@ -7,10 +7,12 @@
         pip install -r requirements.txt
 
         Это установит все необходимые зависимости.
+        Рекомендуемый компилятор: python 3.11.4
 
-Анализ данных находится в data_research.ipynb
-Инференс модели находится в infrence.py
-Flask + модель находится в папке server
+АНАЛИЗ ДАННЫХ находится в data_research.ipynb
+ИНФЕРЕНС находится в inference.py
+КОД ОБУЧЕНИЯ используемой модели находится в boosting_models/lightgbm.ipynb
+Приложение Flask находится в папке server
 
 boosting_models: модели градиентного бустинга
 classic_models: классические алгоритмы
