@@ -15,6 +15,12 @@ from streamlit_shap import st_shap
 import numpy as np
 
 
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+
 # Пути
 ROOT = os.getcwd()
 TRAIN_DATASET = os.path.join(ROOT, 'data/train_AIC.csv')
@@ -65,6 +71,8 @@ explainer = shap_data['explainer']
 explanation = shap_data['explanation']
 shap_values = shap_data['shap_values']
 
+df = pd.read_csv(TRAIN_DATASET)
+
 @st.cache_resource
 def get_explanation(data):
     data_p = pd.DataFrame(data.sample(500, random_state=42))
@@ -93,21 +101,76 @@ def main():
         st.markdown("<h1 style='text-align: left; color: white;'>UnThinkable</h1>", unsafe_allow_html=True)
     
     st.divider()
-    st.text('Платформа для аналитики by Team UnThinkable')
-    st.button('Аналитика модели', use_container_width=True)
-    st.button('Аналитика данных', use_container_width=True)
 
-    
     df_prec = None
     with st.spinner('Preparing explanation...'):
         with st.spinner('Plotting...'):
-                st_shap(shap.plots.waterfall(explanation[3]), height=700, width=700)
+                st_shap(shap.force_plot(explainer.expected_value, shap_values, df_prec, feature_names=FEATURE_NAMES), height=400, width=700)
                 st_shap(shap.plots.beeswarm(explanation), height=700, width=700)
                 st_shap(shap.plots.decision(explainer.expected_value, shap_values, feature_names=FEATURE_NAMES), height=700, width=700)
             
         with st.spinner('Plotting...'):
             shap.initjs()
             st_shap(shap.force_plot(explainer.expected_value, shap_values[0], df_prec, feature_names=FEATURE_NAMES), height=200, width=700)
-            st_shap(shap.force_plot(explainer.expected_value, shap_values, df_prec, feature_names=FEATURE_NAMES), height=400, width=700)
+            st_shap(shap.plots.waterfall(explanation[3]), height=700, width=700)
+
+# 
+vals = df.iloc[0, :-1].values
+def diags(vals: list, mg: int):
+    """ Функция построения диаграмм
+
+    Функция построения диаграмм распределения значений и долей срывов.
+
+    Параметры:
+        vals: список, содержащий для каждой фичи по 1 значению, которое подсвечивается на диаграммах этой фичи 
+    
+    Возвращает: список объектов plotly Figure """
+
+    desc = df.describe()
+    figs = []
+    for i in range(len(df.columns[:-1])):
+        tgt = vals[i]
+        column = df.columns[i]
+        uq = len(df[column].unique())
+        if uq > mg:
+            k = 1 / ((desc[column][7] - desc[column][3]) / mg)
+        else:
+            k = 100
+        df[column] = np.round(df[column] * k) / k
+        tgt = round(2 * k, 0) / k
+        r = {}
+        for i in range(len(df)):
+            v, y = df[column][i], df['y'][i]
+            if v not in list(r.keys()):
+                r[v] = [0, 0]
+            r[v][1] += 1
+            if y == 1:
+                r[v][0] += 1
+        r = dict(sorted(r.items()))
+        c1 = []
+        c2 = []
+        x = []
+        vb = []
+        for i in list(r.keys()):
+            x.append(i)
+            vb.append(r[i][0] / r[i][1])
+            if i == tgt:
+                c1.append('#E2D4B7')
+                c2.append('#E2D4B7')
+            else:
+                c1.append('#647AA3')
+                c2.append('#E03616')
+        sz = ((pd.DataFrame(r).T[1] - np.amin(np.abs(pd.DataFrame(r).T[1]))) / (np.amax(np.abs(pd.DataFrame(r).T[1])) - np.amin(np.abs(pd.DataFrame(r).T[1])))).tolist()
+        fig = make_subplots(rows=2, cols=1, subplot_titles=('Распределение значений', 'Доли срывов'))
+        fig.add_trace(go.Bar(x=x, y=sz, marker={'color': c1}, showlegend=False), row=1, col=1)
+        fig.add_trace(go.Bar(x=x, y=vb, marker={'color': c2}, showlegend=False), row=2, col=1)
+        fig.update_layout(height=600, width=1200, title_text=column, template='plotly_dark', plot_bgcolor='#0E1117', )
+        fig.update_yaxes(type='log')
+        figs.append(fig)
+        st.plotly_chart(fig)
+        
+    return figs
+            
 
 main()
+diags(vals, 500)
