@@ -61,7 +61,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         fit: Обучает предобработчики для дальнейшего использования.
         transform: Трансформирует датасет для дальнейшего использования. """
 
-    def __init__(self, encode_categorical=True) -> None:
+    def __init__(self, encode_categorical=True):
         # Инициализация атрибутов
         self.encode_categorical = encode_categorical
 
@@ -69,7 +69,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
         self.bin_encoder = BinaryEncoder(cols=CAT_FEATURES)
         self.robust_scaler = RobustScaler()
 
-    def fit(self, X: pd.DataFrame, y: pd.DataFrame | None) -> object:
+    def fit(self, X, y) -> object:
         """ Обучение предобработчика.
 
         Обучает предобработчики, на основе датасета и дополнительных признаков,

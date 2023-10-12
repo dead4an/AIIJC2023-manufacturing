@@ -116,7 +116,7 @@ def main():
 
 # 
 vals = df.iloc[0, :-1].values
-def diags(vals: list, mg: int):
+def diags(vals):
     """ Функция построения диаграмм
 
     Функция построения диаграмм распределения значений и долей срывов.
@@ -128,6 +128,7 @@ def diags(vals: list, mg: int):
 
     desc = df.describe()
     figs = []
+    mg = 250
     for i in range(len(df.columns[:-1])):
         tgt = vals[i]
         column = df.columns[i]
