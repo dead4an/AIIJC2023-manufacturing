@@ -71,7 +71,7 @@ explainer = shap_data['explainer']
 explanation = shap_data['explanation']
 shap_values = shap_data['shap_values']
 
-df = pd.read_csv(TRAIN_DATASET)
+df = pd.read_csv(TEST_DATASET)
 
 @st.cache_resource
 def get_explanation(data):
@@ -104,6 +104,15 @@ def main():
 
     df_prec = None
     with st.spinner('Preparing explanation...'):
+        # explanation = get_explanation(df)
+        # shap_values, explainer = get_shap_values(df)
+        # with open(SHAP_SAVE_PATH, 'wb+') as file:
+        #     pickle.dump({
+        #         'explainer': explainer,
+        #         'explanation': explanation,
+        #         'shap_values': shap_values
+        #     }, file)
+
         with st.spinner('Plotting...'):
                 st_shap(shap.force_plot(explainer.expected_value, shap_values, df_prec, feature_names=FEATURE_NAMES), height=400, width=700)
                 st_shap(shap.plots.beeswarm(explanation), height=700, width=700)
@@ -115,7 +124,7 @@ def main():
             st_shap(shap.plots.waterfall(explanation[3]), height=700, width=700)
 
 # 
-vals = df.iloc[0, :-1].values
+# vals = df.iloc[0].values
 def diags(vals):
     """ Функция построения диаграмм
 
@@ -174,4 +183,4 @@ def diags(vals):
             
 
 main()
-diags(vals, 500)
+# diags(vals, 500)
