@@ -14,12 +14,10 @@ import shap
 from streamlit_shap import st_shap
 import numpy as np
 
-
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-
 
 # Пути
 ROOT = os.getcwd()
@@ -107,18 +105,26 @@ def get_shap_values(data, n_samples):
 st.set_page_config(page_title='Home', layout='wide')
 
 # @st.cache_resource
-def plot_general_shap(n_samples, n_samples_deep, n_features):
+def plot_general_shap():
     with st.spinner('Построение графиков...'):
+                n_samples = st.slider('Число записей для анализа', min_value=100, max_value=1000, value=500)
+                n_features = st.slider('Число признаков для анализа', min_value=20, max_value=103, value=103)
                 st_shap(shap.plots.beeswarm(explanation[:n_samples, :n_features]), height=800, width=1280)
                 st_shap(shap.plots.decision(explainer.expected_value, shap_values[:n_samples], 
                                             feature_names=FEATURE_NAMES, ignore_warnings=True), height=800, width=1280)
-                st_shap(shap.force_plot(explainer.expected_value, shap_values[:n_samples_deep], 
-                                        df_prec.sample(25000, random_state=42)[:n_samples_deep], feature_names=FEATURE_NAMES), 
-                                        height=600, width=1280)
+
+@st.cache_resource
+def plot_deep_shap(n_samples):
+    with st.spinner('Построение графиков...'):
+        st_shap(shap.force_plot(explainer.expected_value, shap_values[:n_samples], 
+                                df_prec.sample(25000, random_state=42)[:n_samples], feature_names=FEATURE_NAMES), 
+                                height=600, width=1280)
+
 
 # @st.cache_resource
-def plot_individual(sample_index):
+def plot_individual():
      with st.spinner('Построение графика...'):
+            sample_index = st.number_input(label='Номер записи', min_value=1, max_value=25000)
             st_shap(shap.force_plot(explainer.expected_value, shap_values[sample_index], feature_names=FEATURE_NAMES), height=200, width=1280)
             st_shap(shap.plots.waterfall(explanation[sample_index]), height=800, width=1280)
             st.write(f"Model prediction: {model['model'].predict(df_prec.iloc[sample_index].values.reshape(-1, 103))[0]}")
@@ -133,9 +139,7 @@ def main():
     st.divider()
 
     # Sliders
-    n_samples = st.slider('Число записей для анализа', min_value=100, max_value=1000, value=500)
-    n_samples_deep = st.slider('Число записей подробного анализа', min_value=50, max_value=200, value=100)
-    n_features = st.slider('Число признаков для анализа', min_value=20, max_value=103, value=103)
+    
 
     # Plots
     with st.spinner('Подготовка отчёта...'):
@@ -151,10 +155,10 @@ def main():
         # with open(EXPLAINER_SAVE_PATH, 'wb+') as file:
         #     pickle.dump(explainer, file)
 
-        plot_general_shap(n_samples, n_samples_deep, n_features)
-
-        sample_index = st.slider('Число записей для анализа', min_value=1, max_value=25000, value=1) - 1
-        plot_individual(sample_index)
+        plot_general_shap()
+        n_samples = st.slider('Число записей подробного анализа', min_value=20, max_value=150, value=100)
+        plot_deep_shap(n_samples)
+        plot_individual()
 
 
 main()
