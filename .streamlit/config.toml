@@ -1,2 +1,4 @@
 [theme]
-base = "light"
+base = "dark"
+backgroundColor = "#FBFEF9"
+sidebar = "#191923"
