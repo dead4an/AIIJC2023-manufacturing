@@ -38,9 +38,9 @@ def main():
         st.image('./streamlit/logo.jpg', width=100)
 
     with col2:
-        st.markdown("<h1 style='text-align: left; color: white;'>UnThinkable</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align: left; color: black;'>UnThinkable</h1>", unsafe_allow_html=True)
 
-    st.markdown("<h4 style='text-align: center; color: white;'>Аналитическая платформа by Team UnThinkable</h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: black;'>Аналитическая платформа by Team UnThinkable</h4>", unsafe_allow_html=True)
     # st.text('Аналитическая платформа by Team UnThinkable')
     st.divider()
 
