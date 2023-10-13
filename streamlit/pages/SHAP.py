@@ -29,35 +29,41 @@ TEST_DATASET = os.path.join(ROOT, 'data/test_AIC.csv')
 SUBMISSION_PATH = os.path.join(ROOT, 'submissions/')
 MODEL_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_model.dat')
 PREC_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_preprocessor.dat')
-SHAP_SAVE_PATH = os.path.join(ROOT, 'output/shap.dat')
+SHAP_SAVE_PATH = os.path.join(ROOT, 'output/shap_values.dat')
+EXPLANATION_SAVE_PATH = os.path.join(ROOT, 'output/explanation.dat')
+EXPLAINER_SAVE_PATH = os.path.join(ROOT, 'output/explainer.dat')
 
-
-FEATURE_NAMES = ['Provider_0', 'Provider_1', 'Provider_2', 'Provider_3', 'Provider_4', 'Provider_5', 'Provider_6', 
-                 'Provider_7', 'Provider_8', 'Provider_9', 'Provider_10', 'Provider_11', 'Operations_Manager_0', 
-                 'Operations_Manager_1', 'Operations_Manager_2', 'Operations_Manager_3', 'Operations_Manager_4', 
-                 'Operations_Manager_5', 'Factory', 'Purchasing_Organization_0', 'Purchasing_Organization_1', 
-                 'Purchasing_Organization_2', 'Purchasing_Organization_3', 'Purchasing_Organization_4', 
-                 'Purchasing_Group_0', 'Purchasing_Group_1', 'Purchasing_Group_2', 'Purchasing_Group_3', 
-                 'Purchasing_Group_4', 'Purchasing_Group_5', 'Purchasing_Group_6', 'Purchasing_Group_7', 
-                 'Purchasing_Group_8', 'Company_Code_0', 'Company_Code_1', 'Company_Code_2', 'Company_Code_3', 
-                 'Company_Code_4', 'EI_0', 'EI_1', 'EI_2', 'EI_3', 'EI_4', 'Material_Group_0', 'Material_Group_1', 
-                 'Material_Group_2', 'Material_Group_3', 'Material_Group_4', 'Material_Group_5', 'Material_Group_6', 
-                 'Material_Group_7', 'Delivery_Option', 'Duration', 'ETA_Delivery', 'Weekday', 'Sum', 'Position_Count', 
-                 'Handlers_7', 'Handlers_15', 'Handlers_30', 'Order_Approval_1', 'Order_Approval_2', 'Order_Approval_3', 
-                 'Change_Delivery_Date_7', 'Change_Delivery_Date_15', 'Change_Delivery_Date_30', 'Approval_Cycles', 
-                 'Changes_After_Approvals', 'Days_Between_0_1', 'Days_Between_1_2', 'Days_Between_2_3', 
-                 'Days_Between_3_4', 'Days_Between_4_5', 'Days_Between_5_6', 'Days_Between_6_7', 'Days_Between_7_8', 
-                 'Provider_Purchaser_0', 'Provider_Purchaser_1', 'Provider_Purchaser_2', 'Provider_Purchaser_3', 
-                 'Provider_Purchaser_4', 'Provider_Purchaser_5', 'Provider_Purchaser_6', 'Provider_Purchaser_7', 
-                 'Provider_Purchaser_8', 'Provider_Purchaser_9', 'Provider_Purchaser_10', 'Provider_Purchaser_11', 
-                 'Sum_Fold_0', 'Sum_Fold_1', 'Sum_Fold_2', 'Sum_Fold_3', 'ETC_Difference', 'Change_Difference', 
-                 'ETC_Power', 'day_sin', 'day_cos', 'month1_sin', 'month1_cos', 'month2_sin', 'month2_cos', 
-                 'month3_sin', 'month3_cos']
+# Названия фич для SHAP
+FEATURE_NAMES = ['Поставщик 1', 'Поставщик 2', 'Поставщик 3', 'Поставщик 4', 'Поставщик 5', 'Поставщик 6', 'Поставщик 7', 
+                 'Поставщик 8', 'Поставщик 9', 'Поставщик 10', 'Поставщик 11', 'Поставщик 12', 'Операционный менеджер 1', 
+                 'Операционный менеджер 2', 'Операционный менеджер 3', 'Операционный менеджер 4', 'Операционный менеджер 5', 
+                 'Операционный менеджер 6', 'Завод', 'Закупочная организация 1', 'Закупочная организация 2', 
+                 'Закупочная организация 3', 'Закупочная организация 4', 'Закупочная организация 5', 
+                 'Группа закупок 1', 'Группа закупок 2', 'Группа закупок 3', 'Группа закупок 4', 
+                 'Группа закупок 5', 'Группа закупок 6', 'Группа закупок 7', 'Группа закупок 8', 
+                 'Группа закупок 9', 'Балансовая единица 1', 'Балансовая единица 2', 'Балансовая единица 3', 'Балансовая единица 4', 
+                 'Балансовая единица 5', 'ЕИ 1', 'ЕИ 2', 'ЕИ 3', 'ЕИ 4', 'ЕИ 5', 'Группа материалов 1', 'Группа материалов 2', 
+                 'Группа материалов 3', 'Группа материалов 4', 'Группа материалов 5', 'Группа материалов 6', 'Группа материалов 7', 
+                 'Группа материалов 8', 'Вариант поставки', 'Запланированная длительность поставки', 'Фактическая длительность поставки', 
+                 'День недели', 'Сумма заказа', 'Число позиций', 'Количество обработчиков 7', 'Количество обработчиков 15', 
+                 'Количество обработчиков 30', 'Согласование заказа 1', 'Согласование заказа 2', 'Согласование заказа 3', 
+                 'Изменение даты поставки 7', 'Изменение даты поставки 15', 'Изменение даты поставки 30', 'Число циклов согласования', 
+                 'Количество изменений после согласований', 'Дней между 0_1', 'Дней между 1_2', 'Дней между 2_3', 
+                 'Дней между 3_4', 'Дней между 4_5', 'Дней между 5_6', 'Дней между 6_7', 'Дней между 7_8', 
+                 'Поставщик-закупщик 1', 'Поставщик-закупщик 2', 'Поставщик-закупщик 3', 'Поставщик-закупщик 4', 
+                 'Поставщик-закупщик 5', 'Поставщик-закупщик 6', 'Поставщик-закупщик 7', 'Поставщик-закупщик 8', 
+                 'Поставщик-закупщик 9', 'Поставщик-закупщик 10', 'Поставщик-закупщик 11', 'Поставщик-закупщик 12', 
+                 'Сумма заказа 1', 'Сумма заказа 2', 'Сумма заказа 3', 'Сумма заказа 4', 'Поставка выполнена раньше 1', 'Перенос даты поставки на бумаге', 
+                 'Поставка выполнена раньше 2', 'День недели 1', 'День недели 2', 'Месяц 1-1', 'Месяц 1-2', 'Месяц 2-1', 'Месяц 2-2', 
+                 'Месяц 3-1', 'Месяц 3-2']
 
 # Загрузка модели
 model = None
 prec = None
-shap_data = None
+shap_values = None
+explainer = None
+explanation = None
+shap_values = None
 with open(MODEL_SAVE_PATH, 'rb') as file:
     model = pickle.load(file)
 
@@ -65,17 +71,25 @@ with open(PREC_SAVE_PATH, 'rb') as file:
     prec = pickle.load(file)
 
 with open(SHAP_SAVE_PATH, 'rb') as file:
-    shap_data = pickle.load(file)
+    shap_values = pickle.load(file)
 
-explainer = shap_data['explainer']
-explanation = shap_data['explanation']
-shap_values = shap_data['shap_values']
+with open(EXPLANATION_SAVE_PATH, 'rb') as file:
+    explanation = pickle.load(file)    
+
+with open(SHAP_SAVE_PATH, 'rb') as file: 
+    shap_values = pickle.load(file)
+
+with open(EXPLAINER_SAVE_PATH, 'rb') as file:
+    explainer = pickle.load(file)    
+
+explanation.feature_names = FEATURE_NAMES
 
 df = pd.read_csv(TEST_DATASET)
+df_prec = prec.transform(df)
 
 @st.cache_resource
-def get_explanation(data):
-    data_p = pd.DataFrame(data.sample(500, random_state=42))
+def get_explanation(data, n_samples):
+    data_p = pd.DataFrame(data.sample(n_samples, random_state=42))
     df_prec = prec.transform(data_p)
     explainer = shap.TreeExplainer(model['model'], df_prec)
     explanation = explainer(df_prec, check_additivity=False)
@@ -83,104 +97,64 @@ def get_explanation(data):
 
 
 @st.cache_resource
-def get_shap_values(data):
-    data_p = pd.DataFrame(data.sample(500, random_state=42))
+def get_shap_values(data, n_samples):
+    data_p = pd.DataFrame(data.sample(n_samples, random_state=42))
     df_prec = prec.transform(data_p)
     explainer = shap.TreeExplainer(model['model'], df_prec)
     shap_values = explainer.shap_values(df_prec, check_additivity=False)
     return shap_values, explainer
 
-st.set_page_config('Home')
+st.set_page_config(page_title='Home', layout='wide')
+
+@st.cache_resource
+def plot_general_shap(n_samples, n_samples_deep, n_features):
+    with st.spinner('Построение графиков...'):
+                st_shap(shap.plots.beeswarm(explanation[:n_samples, :n_features]), height=800, width=1280)
+                st_shap(shap.plots.decision(explainer.expected_value, shap_values[:n_samples, :n_features], 
+                                            feature_names=FEATURE_NAMES, ignore_warnings=True), height=800, width=1280)
+                st_shap(shap.force_plot(explainer.expected_value, shap_values[:n_samples_deep, :n_features], 
+                                        df_prec.sample(25000, random_state=42)[:n_samples_deep], feature_names=FEATURE_NAMES), 
+                                        height=600, width=1280)
+
+@st.cache_resource
+def plot_individual(sample_index):
+     with st.spinner('Построение графика...'):
+            st_shap(shap.force_plot(explainer.expected_value, shap_values[sample_index], feature_names=FEATURE_NAMES), height=200, width=1280)
+            st_shap(shap.plots.waterfall(explanation[sample_index]), height=800, width=1280)
+            st.write(f"Model prediction: {model['model'].predict(df_prec.iloc[sample_index].values.reshape(-1, 103))[0]}")
+
 
 def main():
-    _, col1, col2, _ = st.columns([0.4, 0.3, 0.4, 0.7], gap='small')
-    with col1:
-        st.image('./streamlit/logo.jpg', width=100)
-
-    with col2:
-        st.markdown("<h1 style='text-align: left; color: white;'>UnThinkable</h1>", unsafe_allow_html=True)
-    
+    # Header
+    st.title('Анализ графиков SHAP')
+    st.markdown("""Графики SHAP позволяют интерпретировать прогностическую модель и понять, какие факторы (по мнению модели) 
+                ведут к тому или иному исходу. Мы можем проанализировать графики SHAP как для целой выборки, так и для 
+                каждой поставки в отдельности.""")
     st.divider()
 
-    df_prec = None
-    with st.spinner('Preparing explanation...'):
-        # explanation = get_explanation(df)
-        # shap_values, explainer = get_shap_values(df)
-        # with open(SHAP_SAVE_PATH, 'wb+') as file:
-        #     pickle.dump({
-        #         'explainer': explainer,
-        #         'explanation': explanation,
-        #         'shap_values': shap_values
-        #     }, file)
+    # Sliders
+    n_samples = st.slider('Число записей для анализа', min_value=100, max_value=1000, value=500)
+    n_samples_deep = st.slider('Число записей подробного анализа', min_value=50, max_value=500, value=500)
+    n_features = st.slider('Число признаков для анализа', min_value=20, max_value=103, value=103)
 
-        with st.spinner('Plotting...'):
-                st_shap(shap.force_plot(explainer.expected_value, shap_values, df_prec, feature_names=FEATURE_NAMES), height=400, width=700)
-                st_shap(shap.plots.beeswarm(explanation), height=700, width=700)
-                st_shap(shap.plots.decision(explainer.expected_value, shap_values, feature_names=FEATURE_NAMES), height=700, width=700)
-            
-        with st.spinner('Plotting...'):
-            shap.initjs()
-            st_shap(shap.force_plot(explainer.expected_value, shap_values[0], df_prec, feature_names=FEATURE_NAMES), height=200, width=700)
-            st_shap(shap.plots.waterfall(explanation[3]), height=700, width=700)
+    # Plots
+    with st.spinner('Подготовка отчёта...'):
+        # Get shap values
+        # explanation = get_explanation(df, df.shape[0])
+        # shap_values, explainer = get_shap_values(df, df.shape[0])
+        with open(SHAP_SAVE_PATH, 'wb+') as file:
+            pickle.dump(shap_values, file)
 
-# 
-# vals = df.iloc[0].values
-def diags(vals):
-    """ Функция построения диаграмм
+        # with open(EXPLANATION_SAVE_PATH, 'wb+') as file:
+        #     pickle.dump(explanation, file)
 
-    Функция построения диаграмм распределения значений и долей срывов.
+        # with open(EXPLAINER_SAVE_PATH, 'wb+') as file:
+        #     pickle.dump(explainer, file)
 
-    Параметры:
-        vals: список, содержащий для каждой фичи по 1 значению, которое подсвечивается на диаграммах этой фичи 
-    
-    Возвращает: список объектов plotly Figure """
+        plot_general_shap(n_samples, n_samples_deep, n_features)
 
-    desc = df.describe()
-    figs = []
-    mg = 250
-    for i in range(len(df.columns[:-1])):
-        tgt = vals[i]
-        column = df.columns[i]
-        uq = len(df[column].unique())
-        if uq > mg:
-            k = 1 / ((desc[column][7] - desc[column][3]) / mg)
-        else:
-            k = 100
-        df[column] = np.round(df[column] * k) / k
-        tgt = round(2 * k, 0) / k
-        r = {}
-        for i in range(len(df)):
-            v, y = df[column][i], df['y'][i]
-            if v not in list(r.keys()):
-                r[v] = [0, 0]
-            r[v][1] += 1
-            if y == 1:
-                r[v][0] += 1
-        r = dict(sorted(r.items()))
-        c1 = []
-        c2 = []
-        x = []
-        vb = []
-        for i in list(r.keys()):
-            x.append(i)
-            vb.append(r[i][0] / r[i][1])
-            if i == tgt:
-                c1.append('#E2D4B7')
-                c2.append('#E2D4B7')
-            else:
-                c1.append('#647AA3')
-                c2.append('#E03616')
-        sz = ((pd.DataFrame(r).T[1] - np.amin(np.abs(pd.DataFrame(r).T[1]))) / (np.amax(np.abs(pd.DataFrame(r).T[1])) - np.amin(np.abs(pd.DataFrame(r).T[1])))).tolist()
-        fig = make_subplots(rows=2, cols=1, subplot_titles=('Распределение значений', 'Доли срывов'))
-        fig.add_trace(go.Bar(x=x, y=sz, marker={'color': c1}, showlegend=False), row=1, col=1)
-        fig.add_trace(go.Bar(x=x, y=vb, marker={'color': c2}, showlegend=False), row=2, col=1)
-        fig.update_layout(height=600, width=1200, title_text=column, template='plotly_dark', plot_bgcolor='#0E1117', )
-        fig.update_yaxes(type='log')
-        figs.append(fig)
-        st.plotly_chart(fig)
-        
-    return figs
-            
+        sample_index = st.slider('Число записей для анализа', min_value=1, max_value=25000, value=1) - 1
+        plot_individual(sample_index)
+
 
 main()
-# diags(vals, 500)
