@@ -30,7 +30,6 @@ PREC_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_preprocessor.dat')
 
 st.set_page_config('Home')
 
-
 def main():
     # Header
     _, col1, col2, _ = st.columns([0.4, 0.3, 0.4, 0.7], gap='small')

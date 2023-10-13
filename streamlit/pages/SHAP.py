@@ -106,17 +106,17 @@ def get_shap_values(data, n_samples):
 
 st.set_page_config(page_title='Home', layout='wide')
 
-@st.cache_resource
+# @st.cache_resource
 def plot_general_shap(n_samples, n_samples_deep, n_features):
     with st.spinner('Построение графиков...'):
                 st_shap(shap.plots.beeswarm(explanation[:n_samples, :n_features]), height=800, width=1280)
-                st_shap(shap.plots.decision(explainer.expected_value, shap_values[:n_samples, :n_features], 
+                st_shap(shap.plots.decision(explainer.expected_value, shap_values[:n_samples], 
                                             feature_names=FEATURE_NAMES, ignore_warnings=True), height=800, width=1280)
-                st_shap(shap.force_plot(explainer.expected_value, shap_values[:n_samples_deep, :n_features], 
+                st_shap(shap.force_plot(explainer.expected_value, shap_values[:n_samples_deep], 
                                         df_prec.sample(25000, random_state=42)[:n_samples_deep], feature_names=FEATURE_NAMES), 
                                         height=600, width=1280)
 
-@st.cache_resource
+# @st.cache_resource
 def plot_individual(sample_index):
      with st.spinner('Построение графика...'):
             st_shap(shap.force_plot(explainer.expected_value, shap_values[sample_index], feature_names=FEATURE_NAMES), height=200, width=1280)
@@ -134,7 +134,7 @@ def main():
 
     # Sliders
     n_samples = st.slider('Число записей для анализа', min_value=100, max_value=1000, value=500)
-    n_samples_deep = st.slider('Число записей подробного анализа', min_value=50, max_value=500, value=500)
+    n_samples_deep = st.slider('Число записей подробного анализа', min_value=50, max_value=200, value=100)
     n_features = st.slider('Число признаков для анализа', min_value=20, max_value=103, value=103)
 
     # Plots
@@ -158,3 +158,11 @@ def main():
 
 
 main()
+st.markdown("""
+<style>
+body {
+    color: #fff;
+    background-color: #111;
+}
+</style>
+    """, unsafe_allow_html=True)
