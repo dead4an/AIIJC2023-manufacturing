@@ -2,7 +2,6 @@
 import streamlit as st
 from streamlit.web.cli import main
 import os
-import sys
 import pickle
 
 # Визуализация
@@ -10,10 +9,9 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly_express as px
-import shap
-from streamlit_shap import st_shap
 import numpy as np
-
+import tracemalloc
+tracemalloc.start()
 
 # Пути
 ROOT = os.getcwd()
@@ -64,3 +62,6 @@ def main():
     st.text('ещё рано')
 
 main()
+usage = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+print(usage[0] >> 20, usage[1] >> 20)

@@ -2,21 +2,12 @@
 import streamlit as st
 from streamlit.web.cli import main
 import os
-import sys
-import pickle
-
-# Визуализация
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import plotly_express as px
-import shap
-from streamlit_shap import st_shap
-import numpy as np
+import gc
+import tracemalloc
+tracemalloc.start()
 
 # Текст
 from helpers.texts import HOME_PAGE_CONTENT
-
 
 # Пути
 ROOT = os.getcwd()
@@ -26,7 +17,6 @@ TEST_DATASET = os.path.join(ROOT, 'data/test_AIC.csv')
 SUBMISSION_PATH = os.path.join(ROOT, 'submissions/')
 MODEL_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_model.dat')
 PREC_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_preprocessor.dat')
-
 
 st.set_page_config('Home')
 
@@ -46,4 +36,10 @@ def main():
     # Content
     st.text(HOME_PAGE_CONTENT)
     
-main()
+if __name__ == '__main__':
+    main()
+    gc.collect()
+
+usage = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+print(usage[0] >> 20, usage[1] >> 20)

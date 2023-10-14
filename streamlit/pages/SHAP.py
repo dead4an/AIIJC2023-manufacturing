@@ -2,23 +2,16 @@
 import streamlit as st
 from streamlit.web.cli import main
 import os
-import sys
 import pickle
-import psutil
+import tracemalloc
+import gc
 
 # Визуализация
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 import plotly_express as px
 import shap
 from streamlit_shap import st_shap
-import numpy as np
-
-import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 
 # Пути
 ROOT = os.getcwd()
@@ -56,32 +49,17 @@ FEATURE_NAMES = ['Поставщик 1', 'Поставщик 2', 'Поставщ
                  'Поставка выполнена раньше 2', 'День недели 1', 'День недели 2', 'Месяц 1-1', 'Месяц 1-2', 'Месяц 2-1', 'Месяц 2-2', 
                  'Месяц 3-1', 'Месяц 3-2']
 
+tracemalloc.start()
 # Загрузка модели
+
 model = None
 prec = None
 shap_values = None
 explainer = None
 explanation = None
 shap_values = None
-with open(MODEL_SAVE_PATH, 'rb') as file:
-    model = pickle.load(file)
-
-with open(PREC_SAVE_PATH, 'rb') as file:
-    prec = pickle.load(file)
-
-with open(SHAP_SAVE_PATH, 'rb') as file:
-    shap_values = pickle.load(file)
-
-with open(EXPLANATION_SAVE_PATH, 'rb') as file:
-    explanation = pickle.load(file)    
-
-with open(EXPLAINER_SAVE_PATH, 'rb') as file:
-    explainer = pickle.load(file)    
-
-explanation.feature_names = FEATURE_NAMES
-
-df = pd.read_csv(TEST_DATASET)
-df_prec = prec.transform(df)
+df = None
+df_prec = None
 
 # @st.cache_resource
 def get_explanation(data, n_samples):
@@ -154,6 +132,29 @@ def main():
         n_samples = st.slider('Число записей подробного анализа', min_value=10, max_value=100, value=50)
         plot_deep_shap(n_samples)
         plot_individual()
+        gc.collect()
 
-main()
-print(psutil.virtual_memory()[3] >> 20)
+if __name__ == '__main__':
+    df = pd.read_csv(TEST_DATASET)
+    with open(MODEL_SAVE_PATH, 'rb') as file:
+        model = pickle.load(file)
+
+    with open(PREC_SAVE_PATH, 'rb') as file:
+        prec = pickle.load(file)
+        df_prec = prec.transform(df)
+
+    with open(SHAP_SAVE_PATH, 'rb') as file:
+        shap_values = pickle.load(file)
+
+    with open(EXPLANATION_SAVE_PATH, 'rb') as file:
+        explanation = pickle.load(file)    
+        explanation.feature_names = FEATURE_NAMES
+
+    with open(EXPLAINER_SAVE_PATH, 'rb') as file:
+        explainer = pickle.load(file)    
+        
+    main()
+
+usage = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+print(usage[0] >> 20, usage[1] >> 20)
