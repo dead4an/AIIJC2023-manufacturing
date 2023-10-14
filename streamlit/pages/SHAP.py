@@ -82,7 +82,7 @@ explanation.feature_names = FEATURE_NAMES
 df = pd.read_csv(TEST_DATASET)
 df_prec = prec.transform(df)
 
-@st.cache_resource
+# @st.cache_resource
 def get_explanation(data, n_samples):
     data_p = pd.DataFrame(data.sample(n_samples, random_state=42))
     df_prec = prec.transform(data_p)
@@ -91,7 +91,7 @@ def get_explanation(data, n_samples):
     return explanation
 
 
-@st.cache_resource
+# @st.cache_resource
 def get_shap_values(data, n_samples):
     data_p = pd.DataFrame(data.sample(n_samples, random_state=42))
     df_prec = prec.transform(data_p)
