@@ -150,7 +150,7 @@ def main():
         #     pickle.dump(explainer, file)
 
         plot_general_shap()
-        n_samples = st.slider('Число записей подробного анализа', min_value=20, max_value=150, value=100)
+        n_samples = st.slider('Число записей подробного анализа', min_value=10, max_value=100, value=50)
         plot_deep_shap(n_samples)
         plot_individual()
 
