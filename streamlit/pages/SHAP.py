@@ -153,6 +153,7 @@ def main():
         n_samples = st.slider('Число записей подробного анализа', min_value=10, max_value=100, value=50)
         plot_deep_shap(n_samples)
         plot_individual()
-
+        del explainer
+        del explanation
 
 main()
