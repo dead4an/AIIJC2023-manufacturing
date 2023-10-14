@@ -110,7 +110,7 @@ def plot_general_shap():
                 st_shap(shap.plots.decision(explainer.expected_value, shap_values[:n_samples], 
                                             feature_names=FEATURE_NAMES, ignore_warnings=True), height=800, width=1280)
 
-@st.cache_resource
+# @st.cache_resource
 def plot_deep_shap(n_samples):
     with st.spinner('Построение графиков...'):
         st_shap(shap.force_plot(explainer.expected_value, shap_values[:n_samples], 
