@@ -156,11 +156,3 @@ def main():
 
 
 main()
-st.markdown("""
-<style>
-body {
-    color: #fff;
-    background-color: #111;
-}
-</style>
-    """, unsafe_allow_html=True)
