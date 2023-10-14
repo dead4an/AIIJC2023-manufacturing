@@ -105,8 +105,8 @@ st.set_page_config(page_title='Home', layout='wide')
 def plot_general_shap():
     with st.spinner('Построение графиков...'):
                 n_samples = st.slider('Число записей для анализа', min_value=100, max_value=1000, value=500)
-                n_features = st.slider('Число признаков для анализа', min_value=20, max_value=103, value=103)
-                st_shap(shap.plots.beeswarm(explanation[:n_samples, :n_features]), height=800, width=1280)
+                n_features = st.slider('Число признаков для анализа', min_value=5, max_value=30, value=10)
+                st_shap(shap.plots.beeswarm(explanation[:n_samples], max_display=n_features), height=800, width=1280)
                 st_shap(shap.plots.decision(explainer.expected_value, shap_values[:n_samples], 
                                             feature_names=FEATURE_NAMES, ignore_warnings=True), height=800, width=1280)
 
