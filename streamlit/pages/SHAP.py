@@ -4,6 +4,7 @@ from streamlit.web.cli import main
 import os
 import sys
 import pickle
+import psutil
 
 # Визуализация
 import pandas as pd
@@ -106,24 +107,24 @@ def plot_general_shap():
     with st.spinner('Построение графиков...'):
                 n_samples = st.slider('Число записей для анализа', min_value=100, max_value=1000, value=500)
                 n_features = st.slider('Число признаков для анализа', min_value=5, max_value=30, value=10)
-                st_shap(shap.plots.beeswarm(explanation[:n_samples], max_display=n_features), height=800, width=1280)
+                st_shap(shap.plots.beeswarm(explanation[:n_samples], max_display=n_features, show=False), height=800, width=1280)
                 st_shap(shap.plots.decision(explainer.expected_value, shap_values[:n_samples], 
-                                            feature_names=FEATURE_NAMES, ignore_warnings=True), height=800, width=1280)
+                                            feature_names=FEATURE_NAMES, ignore_warnings=True, show=False), height=800, width=1280)
 
 # @st.cache_resource
 def plot_deep_shap(n_samples):
     with st.spinner('Построение графиков...'):
         st_shap(shap.force_plot(explainer.expected_value, shap_values[:n_samples], 
-                                df_prec.sample(25000, random_state=42)[:n_samples], feature_names=FEATURE_NAMES), 
-                                height=600, width=1280)
+                                df_prec.sample(25000, random_state=42)[:n_samples], feature_names=FEATURE_NAMES, 
+                                show=False), height=600, width=1280)
 
 
 # @st.cache_resource
 def plot_individual():
      with st.spinner('Построение графика...'):
             sample_index = st.number_input(label='Номер записи', min_value=1, max_value=25000)
-            st_shap(shap.force_plot(explainer.expected_value, shap_values[sample_index], feature_names=FEATURE_NAMES), height=200, width=1280)
-            st_shap(shap.plots.waterfall(explanation[sample_index]), height=800, width=1280)
+            st_shap(shap.force_plot(explainer.expected_value, shap_values[sample_index], feature_names=FEATURE_NAMES, show=False), height=200, width=1280)
+            st_shap(shap.plots.waterfall(explanation[sample_index], show=False), height=800, width=1280)
             st.write(f"Model prediction: {model['model'].predict(df_prec.iloc[sample_index].values.reshape(-1, 103))[0]}")
 
 
@@ -153,7 +154,6 @@ def main():
         n_samples = st.slider('Число записей подробного анализа', min_value=10, max_value=100, value=50)
         plot_deep_shap(n_samples)
         plot_individual()
-        del explainer
-        del explanation
 
 main()
+print(psutil.virtual_memory()[3] >> 20)
