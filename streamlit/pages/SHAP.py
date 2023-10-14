@@ -74,9 +74,6 @@ with open(SHAP_SAVE_PATH, 'rb') as file:
 with open(EXPLANATION_SAVE_PATH, 'rb') as file:
     explanation = pickle.load(file)    
 
-with open(SHAP_SAVE_PATH, 'rb') as file: 
-    shap_values = pickle.load(file)
-
 with open(EXPLAINER_SAVE_PATH, 'rb') as file:
     explainer = pickle.load(file)    
 
@@ -138,16 +135,13 @@ def main():
                 каждой поставки в отдельности.""")
     st.divider()
 
-    # Sliders
-    
-
     # Plots
     with st.spinner('Подготовка отчёта...'):
         # Get shap values
         # explanation = get_explanation(df, df.shape[0])
         # shap_values, explainer = get_shap_values(df, df.shape[0])
-        with open(SHAP_SAVE_PATH, 'wb+') as file:
-            pickle.dump(shap_values, file)
+        # with open(SHAP_SAVE_PATH, 'wb+') as file:
+        #     pickle.dump(shap_values, file)
 
         # with open(EXPLANATION_SAVE_PATH, 'wb+') as file:
         #     pickle.dump(explanation, file)
