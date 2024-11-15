@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report, f1_score, roc_auc_score, accuracy_score, ConfusionMatrixDisplay
 
 
-def valid_predictions(y_true: pd.DataFrame, y_pred: pd.DataFrame, classes: list) -> None:
+def valid_predictions(y_true, y_pred, classes) -> None:
     """ Выводит метрики модели.
 
     Выводит следующие метрики:

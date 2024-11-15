@@ -2,50 +2,55 @@
 import streamlit as st
 from streamlit.web.cli import main
 import os
-import sys
-import pickle
-
-# Визуализация
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import plotly_express as px
-import shap
-from streamlit_shap import st_shap
-import numpy as np
+import gc
+import tracemalloc
+tracemalloc.start()
 
 # Текст
 from helpers.texts import HOME_PAGE_CONTENT
 
-
 # Пути
 ROOT = os.getcwd()
-TRAIN_DATASET = os.path.join(ROOT, 'data/train_AIC.csv')
-BALANCED_DATASET = os.path.join(ROOT, 'data/balanced_train.csv')
-TEST_DATASET = os.path.join(ROOT, 'data/test_AIC.csv')
-SUBMISSION_PATH = os.path.join(ROOT, 'submissions/')
-MODEL_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_model.dat')
-PREC_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_preprocessor.dat')
-
-
+LOGO = os.path.join(ROOT, 'logo.png')
 
 st.set_page_config('Home')
 
-
 def main():
-    # Header
-    _, col1, col2, _ = st.columns([0.4, 0.3, 0.4, 0.7], gap='small')
-    with col1:
-        st.image('./streamlit/logo.jpg', width=100)
-
-    with col2:
-        st.markdown("<h1 style='text-align: left; color: white;'>UnThinkable</h1>", unsafe_allow_html=True)
-
-    st.markdown("<h4 style='text-align: center; color: white;'>Аналитическая платформа by Team UnThinkable</h4>", unsafe_allow_html=True)
-    # st.text('Аналитическая платформа by Team UnThinkable')
+    st.markdown("<div style='margin: auto; width: 150px; height: 150px; overflow: hidden;'><img src='https://github.com/gorokhovart/uts/blob/main/logo2.png?raw=true' alt='UT' style='width: 100%;'></div>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: black;'>Аналитическая платформа</h2>", unsafe_allow_html=True)
+    st.markdown("<h5 style='text-align: center; color: black; font-weight: bold;'>By UnThinkable</h5>", unsafe_allow_html=True)
     st.divider()
+
+    tab_team, tab_model, tab_platform = st.tabs(['Команда', 'Модель', 'Платформа'])
+    with tab_team:
+        st.markdown("""
+                    **UnThinkable** - команда, разработавшая аналитическую платформу для предсказания и предотвращения срывов поставок. 
+                    Мы сочетаем знания в области анализа данных и машинного обучения с прагматичным подходом, чтобы помочь компаниям эффективно управлять своими поставками. 
+                    Наша платформа основана на современных методах анализа и позволяет выявлять тренды и риски на основе исторических данных. 
+                    Мы ставим перед собой амбициозные цели и стремимся к постоянному развитию. **UnThinkable - Мы воплощаем то, что другим лишь снится!**""")
+        
+    with tab_model:
+        st.markdown("""
+                    Мы используем эффективный алгоритм машинного обучения под названием **LightGBM**, чтобы предсказывать срывы поставок.  **LightGBM** - широко применяемый и признанный алгоритм, который позволяет достичь высокую точность предсказаний. 
+                    Наша модель обладает точностью 92,25%, что означает, что она правильно классифицирует **92,25%** случаев срывов и несрывов поставок. 
+                    Обратите внимание, что точность модели может быть улучшена с помощью дополнительного обучения на большем объеме данных, а также
+                    использовании дополнительной информации о поставках. 
+                    Благодаря этому алгоритму вы сможете прогнозировать срывы поставок и принимать оперативные меры для их предотвращения. """)
+    
+    with tab_platform:
+        st.markdown("""
+                    Мы создали эту **аналитическую платформу** для анализа данных и предсказания будущих событий на основе исторических данных. 
+                    На платформе вы найдете полезные инсайты, которые помогут вам принимать более оптимальные решения в управлении поставками. 
+                    Используя графики и визуализации, мы смогли выявить тренды и закономерности в исторических данных, которые могут помочь вам более эффективно управлять поставками и снизить риск срыва поставок. 
+                    Наша платформа позволяет вам быть впереди, предугадывать возможные проблемы и принимать предупредительные меры для вашего бизнеса.""")
 
     # Content
     st.text(HOME_PAGE_CONTENT)
     
-main()
+if __name__ == '__main__':
+    main()
+    gc.collect()
+
+usage = tracemalloc.get_traced_memory()
+tracemalloc.stop()
+print(usage[0] >> 20, usage[1] >> 20)

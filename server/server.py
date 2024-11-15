@@ -1,15 +1,15 @@
 import os
 import pickle
 import pandas as pd
+from flask import Flask, request, render_template
 from helpers.data import RENAME_COLS
 import warnings
 warnings.filterwarnings('ignore')
-from flask import Flask, request, render_template
 
 
 # Пути
 ROOT = os.getcwd()
-MODEL_SAVE_PATH = os.path.join(ROOT, 'output/lgbm_model.dat')
+MODEL_SAVE_PATH = os.path.join(ROOT, 'output', 'lgbm_model.dat')
 
 # Загрузка модели
 model = None
@@ -29,6 +29,7 @@ def home_page():
     
     else:
         return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=False)
